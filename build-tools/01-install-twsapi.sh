@@ -1,4 +1,6 @@
-#!/bin/bash -xeiou pipefail
+#!/bin/bash
+
+set -xeuo pipefail
 
 BUILD_UTILS_ROOT=$(cd "$(dirname "${0}")" && pwd)
 WORK_DIR=${BUILD_UTILS_ROOT}/workdir
