@@ -10,12 +10,13 @@ Interactive Brokers API to Kafka bridge.
 
 ## Prerequisites
 
- - Trader Workstation
- - Compiled Interactive Brokers API 
+ - Trader Workstation (version 951 and above)
+ - Compiled Interactive Brokers API ([build script](https://github.com/tibkiss/ib-kafka-bridge/blob/master/build-tools/01-install-twsapi.sh))
+ - JSAB's [ib-re-actor](https://github.com/jsab/ib-re-actor) ([build script](https://github.com/tibkiss/ib-kafka-bridge/blob/master/build-tools/02-install-ib-re-actor.sh))
  - Kafka
  - Leiningen
  - JVM
- 
+
 ## License
 
 Copyright © 2016 Tibor Kiss
