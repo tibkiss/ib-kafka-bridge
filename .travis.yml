@@ -1,2 +1,5 @@
 language: clojure
 script: lein midje
+before_install:
+    - ./build-tools/01-install-twsapi.sh
+    - ./build-tools/02-install-ib-re-actor.sh
