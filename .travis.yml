@@ -1,4 +1,6 @@
 language: clojure
+jdk:
+    - oraclejdk8
 script: lein midje
 before_install:
     - ./build-tools/01-install-twsapi.sh
