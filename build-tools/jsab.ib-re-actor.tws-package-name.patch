@@ -1,0 +1,12 @@
+diff --git a/project.clj b/project.clj
+index 7702517..0c29e2b 100644
+--- a/project.clj
++++ b/project.clj
+@@ -5,6 +5,6 @@
+                  [org.clojure/tools.logging "0.3.1"]
+                  [clj-logging-config "1.9.12"]
+                  [org.clojure/core.async "0.2.374"]
+-                 [twsapi "971.01"]]
++                 [com.interactivebrokers.tws/tws-api "9.71.01"]]
+   :profiles {:dev {:dependencies [[midje "1.8.3"]]
+                    :plugins [[lein-midje "3.0.0"]]}})
