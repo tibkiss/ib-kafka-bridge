@@ -10,6 +10,8 @@
             [clj-time.coerce :as coerce])
   (:import (java.io PrintWriter)))
 
+(def POSITIONS-TOPIC "ib-positions")
+
 (defn- wait-for
   "Invoke predicate every interval (default 10) seconds until it returns true,
    or timeout (default 150) seconds have elapsed. E.g.:
@@ -53,6 +55,16 @@
    :error #(log/error "Error: " %)}
   )
 
+(defn- create-positions-handlers [kafka-connection]
+  {:data  (fn [msg]
+            (log/info "Position: " msg)
+            (kafka/send-msg kafka-connection POSITIONS-TOPIC (.getBytes (json/write-str msg)))
+            )
+   :end   #(log/info "End of positions request.")
+   :error #(log/error "Error while processing positions: " %)
+   }
+  )
+
 (defn create-tws-connection [tws-uri]
   (log/debug "Connecting to TWS: " tws-uri)
   (let [[tws-host tws-port client-id] (string/split tws-uri #":")
@@ -81,7 +93,9 @@
     (doall
       (map
         #(ib-gw/request-market-data tws-conn %1 ticks false (create-market-data-handlers kafka-conn %2))
-        contracts security))))
+        contracts security))
+    (ib-gw/request-positions tws-conn (create-positions-handlers kafka-conn)))
+  )
 
 (def cli-options
   [

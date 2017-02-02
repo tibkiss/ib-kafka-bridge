@@ -13,8 +13,12 @@
       (create-contract "EUR.USD") => {:symbol "EUR" :type :cash :exchange "IDEALPRO" :currency "USD"}
       )
 
-(fact "Market Data Handler works"
+(fact "Market Data handler works"
       (#'ib-kafka-bridge.core/create-market-data-handlers ..kafka-conn.. ..contract..) =>
+      (just {:data anything :end anything :error anything}))
+
+(fact "Market Position handler works"
+      (#'ib-kafka-bridge.core/create-positions-handlers ..kafka-conn..) =>
       (just {:data anything :end anything :error anything}))
 
 (fact "Dispatch to Kafka works"
@@ -32,5 +36,6 @@
         (create-gw ..kafka-uri.. ..tws-uri.. security) => irrelevant
         (provided (create-tws-connection ..tws-uri..) => ..tws-conn..,
                   (create-kafka-connection ..kafka-uri..) => ..kafka-conn..,
-                  (ib-gw/request-market-data ..tws-conn.. anything anything false anything) => nil :times 3)
+                  (ib-gw/request-market-data ..tws-conn.. anything anything false anything) => nil :times 3,
+                  (ib-gw/request-positions ..tws-conn.. anything) => nil)
         ))
